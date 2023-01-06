@@ -1,0 +1,113 @@
+body{
+	margin: 0;
+}
+
+.container{
+	max-width: 428px;
+	margin: 0 auto;
+	background-color: #313438;
+	min-height: 100vh;
+}
+
+a{
+	text-decoration: none;
+}
+
+.header-flex-padding{
+	display: flex;
+align-items: self-end;
+margin-left: 100px;
+column-gap: 90px;
+}
+
+.btn{
+
+}
+
+.btn-group{
+	
+}
+
+
+.header{
+	display: flex;
+	flex-direction: column;
+	color: #fff;
+	background: linear-gradient(90deg, rgb(97, 100, 98) 0%, rgb(107, 107, 104) 100%);
+	padding: 0.8em 0;
+	align-items: center;
+}
+
+
+
+.member-search{
+	font-size: 1.2em;
+	padding:.3em .3em;
+	border-radius: 100px;
+	border:1px solid white;
+	outline: none;
+}
+
+
+.members-library{
+	background: #313438;
+}
+
+.add{
+	color: #fff;
+	font-size: 1.5em;
+}
+
+i{
+	color: #fff;
+	font-size: 1.5em;
+}
+
+.member-name{
+	color: #fff;
+	font-size: 1.4em;
+}
+
+.member-attributes{
+	color: #fff;
+	font-size: 1.0em;
+}
+
+
+ul{
+	margin: 0;
+	padding: 0;
+	width: 100%;
+}
+
+hr{
+	border: 1px solimemberd #494a4b;
+}
+
+.list__item{
+	list-style: none;
+	margin-left: 30px;
+	width: 300px;
+}
+
+.avatar-class{
+	list-style: none;
+	width: 50px;
+	height: 50px;
+	margin: auto 5px;
+}
+
+
+
+
+.member-section{
+	display: flex;
+	align-items: center;
+	
+	padding: 0 1.5em;
+	transition: 0.3s;
+}
+
+.text{
+	padding-left: 1em;
+}

@@ -1,0 +1,106 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="{% static 'style-edit.css' %}">
+
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+
+	<script src="https://kit.fontawesome.com/6b20b1c14d.js" crossorigin="anonymous"></script>
+	<title>Edit Member</title>
+</head>
+
+<body>
+
+	<div class='container'>
+		<header class="header">
+			
+			
+			<a href="/">
+				<i class="fas fa-chevron-circle-left back-btn"></i>
+			</a>
+			<div class = "header-flex-padding">
+			<h2>Edit a team member </h2>
+			
+			<span> Edit info, location and role </span>
+		</div>
+		</header>
+
+		<form action="" method="POST">
+			{% csrf_token %}
+			<section class="member-info">
+				
+				{% if errorMessage != null %}
+				<div class="info-line">
+					<p class="text-justify">{{ errorMessage}}</p>
+				</div>
+				{% endif %}
+
+				<div class="info-line">
+					<input type="text" class="type" name="firstName" placeholder="First Name"
+						value="{{ member.first_name}}">
+				</div>
+
+				<div class="info-line">
+					<input type="text" class="type" name="lastName" placeholder="Last Name"
+						value="{{ member.last_name}}">
+				</div>
+
+	
+
+
+
+				<div class="info-line">
+					<input type="text" class="type" name="phoneNumber" placeholder="Phone Number"
+						value="{{ member.phone_number }}">
+				</div>
+
+
+
+				<div class="info-line">
+					<input type="text" class="type" name="email" placeholder="Email" value="{{ member.email }}">
+				</div>
+
+
+			</section>
+
+			<div class="radio-button-group">
+				{% if member.is_admin == 'regular' %}
+				<input type="radio" class="radio-button" name="isAdmin" value="regular" id="regular" checked />
+				{% else %}
+				<input type="radio" class="radio-button" name="isAdmin" value="regular" id="regular"/>
+				{% endif %}
+				<label class="info-line" for="button1">Regular - Cant delete members</label>
+				{% if member.is_admin == 'admin' %}
+				<input type="radio" class="radio-button" name="isAdmin" value="admin" id="admin" checked/>
+				{% else %}
+				<input type="radio" class="radio-button" name="isAdmin" value="admin" id="admin" />
+				{% endif %}
+				<label class="info-line" for="button2">Admin - Can delete members</label>
+			</div>
+
+			<section class="button-container">
+					<button class="button-save">Save</button>
+			</section>
+		</form>
+
+		<section class="button-container">
+
+			<a href="{% url 'delete' member.id %}">
+				
+					<button class="button-delete">Delete</button>
+				
+			</a>
+
+		</section>
+	</div>
+
+</body>
+
+
+</html>

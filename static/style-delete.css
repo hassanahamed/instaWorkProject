@@ -1,0 +1,42 @@
+
+body{
+	font-family: 'Inter', sans-serif;
+	margin: 0;
+}
+
+.container{
+	max-width: 428px;
+	margin: 0 auto;
+	background-color: #313438;
+	min-height: 100vh;
+}
+
+
+.delete-container{
+	background-color: #313438;
+	color: #fff;
+	text-align: center;
+}
+
+p{
+	padding-bottom: 2em;
+	color: #fff;
+}
+
+.delete-container{
+	padding: 2em 3.5em;
+}
+
+
+
+.button-delete{
+	background-color: #b5201b; /* Green */
+  border: none;
+  color: rgb(208, 199, 199);
+  padding: 15px 32px;
+  border-radius: 8px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
