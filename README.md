@@ -78,7 +78,7 @@ We can run this application using docker -
 
         docker build -t team_management_app .
 
-        docker run team_management_app:latest
+        docker run --rm -it -p 8000:8000/tcp team_management_app:latest 
 
     d) Open browser and go to http://127.0.0.1:8000/
 
