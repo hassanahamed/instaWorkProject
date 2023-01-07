@@ -12,7 +12,7 @@
 	<link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
 
 	<script src="https://kit.fontawesome.com/6b20b1c14d.js" crossorigin="anonymous"></script>
-	<title>Edit Member</title>
+	<title>Add Member</title>
 </head>
 
 <body>
@@ -70,16 +70,16 @@
 			</section>
 
 			<div class="radio-button-group">
-				{% if member.is_admin == 'regular' %}
-				<input type="radio" class="radio-button" name="isAdmin" value="regular" id="regular" checked />
+				{% if member.role.role_name == 'Regular' %}
+				<input type="radio" class="radio-button" name="role" value=2 id="regular" checked />
 				{% else %}
-				<input type="radio" class="radio-button" name="isAdmin" value="regular" id="regular"/>
+				<input type="radio" class="radio-button" name="role" value=2 id="regular"/>
 				{% endif %}
 				<label class="info-line" for="button1">Regular - Cant delete members</label>
-				{% if member.is_admin == 'admin' %}
-				<input type="radio" class="radio-button" name="isAdmin" value="admin" id="admin" checked/>
+				{% if member.role.role_name == 'Admin' %}
+				<input type="radio" class="radio-button" name="role" value=1 id="admin" checked/>
 				{% else %}
-				<input type="radio" class="radio-button" name="isAdmin" value="admin" id="admin" />
+				<input type="radio" class="radio-button" name="role" value=1 id="admin" />
 				{% endif %}
 				<label class="info-line" for="button2">Admin - Can delete members</label>
 			</div>

@@ -51,6 +51,8 @@ column-gap: 90px;
 
 .members-library{
 	background: #313438;
+	max-height: 600px;
+    overflow-y: scroll;
 }
 
 .add{

@@ -61,11 +61,12 @@
 			</section>
 			{% else %}
 			<section class="member-info">
-
+				{% if errorMessage != null %}
 				<div class="info-line">
 					
 						<p class="text-justify">{{ errorMessage}}</p>
 				</div>
+				{% endif %}
 
 				<div class="info-line">
 					<input type="text" class="type" name="firstName" placeholder="First Name"
@@ -97,16 +98,16 @@
 			{% endif %}
 			
 			<div class="radio-button-group">
-				{% if member.is_admin == 'regular' %}
-				<input type="radio" class="radio-button" name="isAdmin" value="regular" id="regular" checked />
+				{% if member == '' or member.role == '2' or member.role.role_name == 'Regular' %}
+				<input type="radio" class="radio-button" name="role" value=2 id="regular" checked />
 				{% else %}
-				<input type="radio" class="radio-button" name="isAdmin" value="regular" id="regular"/>
+				<input type="radio" class="radio-button" name="role" value=2 id="regular"/>
 				{% endif %}
 				<label class="info-line" for="button1">Regular - Cant delete members</label>
-				{% if member.is_admin == 'admin' %}
-				<input type="radio" class="radio-button" name="isAdmin" value="admin" id="admin" checked/>
+				{% if member == '' or member.role == '1' or member.role.role_name == 'Admin' %}
+				<input type="radio" class="radio-button" name="role" value=1 id="admin" checked/>
 				{% else %}
-				<input type="radio" class="radio-button" name="isAdmin" value="admin" id="admin" />
+				<input type="radio" class="radio-button" name="role" value=1 id="admin" />
 				{% endif %}
 				<label class="info-line" for="button2">Admin - Can delete members</label>
 			</div>

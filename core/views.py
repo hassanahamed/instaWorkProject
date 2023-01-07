@@ -1,12 +1,13 @@
-from itertools import chain
 from django.core.exceptions import ValidationError
-from django.db.utils import IntegrityError
 from django.shortcuts import render, redirect
-from .models import Member
-from django.core.validators import validate_email
+from .team_management_exception import TeamManagementFacadeException
+from .forms import MemberForm
+from .models import Member, Role
+from .mapper_config import MemberConfig
+
 
 # Create your views here.
-
+member_config = MemberConfig()
 def index(request):
     members = Member.objects.all()
     search_input = request.GET.get('search-area')
@@ -20,36 +21,24 @@ def index(request):
     return render(request, 'index.html', {'members': members, 'search_input': search_input, 'member_count': len(members)})
 
 def addMember(request):
-    new_member = None
+    
+    data = member_config.get_data(request.POST)
+    print(data)
+    new_member_form = MemberForm(data)
     try:
         if request.method == 'POST':
+            if not new_member_form.is_valid():
+                raise TeamManagementFacadeException(new_member_form.errors.get_json_data())
             
-            new_member = Member(
-                first_name=request.POST['firstName'],
-                last_name=request.POST['lastName'],
-                email=request.POST['email'],
-                phone_number=request.POST['phoneNumber'],
-                is_admin=request.POST['isAdmin'],
-                )
-            validate_email(request.POST['email'])
+            new_member = new_member_form.save(commit=False)
+            new_member.role = Role(request.POST.get("role",2))
             new_member.save()
             return redirect('/')
 
-        return render(request, 'new.html')
-    except ValidationError as e:
-        e = list(e)
-        print(e[0])
-        return render(request, 'new.html', {'member': new_member, 'errorMessage':e[0]})
+        return render(request, 'new.html', {'member': ''})
+    except TeamManagementFacadeException as e:
+        return render(request, 'new.html', {'member': data, 'errorMessage':e.message})
 
-    except IntegrityError as e:
-        print(e)
-        e = str(e)
-        error_message = e
-        if 'core_member.email' in e:
-            error_message = 'Email Address already exists'
-        if 'core_member.phone_number' in e:
-            error_message = 'Phone number already exists'
-        return render(request, 'new.html', {'member': new_member, 'errorMessage':error_message})
 
             
 
@@ -57,31 +46,20 @@ def editMember(request, pk):
     member = Member.objects.get(id=pk)
     try:
         if request.method == 'POST':
-            print(request.POST['isAdmin'])
+            data = member_config.get_data(request.POST)
             member.first_name=request.POST['firstName']
             member.last_name=request.POST['lastName']
             member.email=request.POST['email']
             member.phone_number=request.POST['phoneNumber']
-            member.is_admin=request.POST['isAdmin']
-            validate_email(request.POST['email'])
+            member.role=Role(request.POST.get("role",2))
+            member_form = MemberForm(instance=member, data=data)
+            if not member_form.is_valid():
+                raise TeamManagementFacadeException(member_form.errors.get_json_data())
             member.save()
-
             return redirect('/')
         return render(request, 'edit.html', {'member': member})
-    except ValidationError as e:
-        e = list(e)
-        print(e[0])
-        return render(request, 'edit.html', {'member': member, 'errorMessage':e[0]})
-
-    except IntegrityError as e:
-        print(e)
-        e = str(e)
-        error_message = e
-        if 'core_member.email' in e:
-            error_message = 'Email Address already exists'
-        if 'core_member.phone_number' in e:
-            error_message = 'Phone number already exists'
-        return render(request, 'edit.html', {'member': member, 'errorMessage':error_message})
+    except TeamManagementFacadeException as e:
+        return render(request, 'edit.html', {'member': member, 'errorMessage':e.message})
 
 def deleteMember(request, pk):
     member = Member.objects.get(id=pk)

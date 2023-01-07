@@ -53,20 +53,21 @@
 						</li>
 						<li class="list__item">
 
-
+							{% if member.role.role_name == 'Admin' %}
+							<p class="member-name">{{ member.first_name }} {{ member.last_name }} (Admin)</p>
+							{% else %}
 							<p class="member-name">{{ member.first_name }} {{ member.last_name }}</p>
-
+							{% endif %}
 							<p class="member-attributes" >{{ member.phone_number }}</p>
 							<p class="member-attributes">{{ member.email }}</p>
 						</li>
 
 					</div>
 				</a>
-
 				<hr>
 
 				{% empty %}
-				<h3 style="color:#fff;padding:20px;">No members found..</h3>
+				<h3 style="color:#fff;padding:20px;">No members found.</h3>
 				{% endfor %}
 			</ul>
 		</section>
