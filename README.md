@@ -85,7 +85,7 @@ We can run this application using docker -
 
 
 
-
+### Time taken - ~12 hours
     
 
 
