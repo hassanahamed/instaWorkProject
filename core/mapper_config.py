@@ -10,7 +10,8 @@ class MemberConfig():
     def get_data(self, data):
         mapped_data = {}
         for item in self.config.keys():
-            mapped_data[item] = data.get(self.config[item])
+            value = data.get(self.config[item])
+            mapped_data[item] = value.strip() if isinstance(value, str) else value
         return mapped_data
 
         
