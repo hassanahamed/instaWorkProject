@@ -63,11 +63,13 @@ class Member(models.Model):
         max_length=100, 
         unique=True, 
         validators=[custom_validators.phone_number_validator],
+        null=True,
         blank=True
     )
     role = models.ForeignKey(Role, on_delete=models.SET_NULL, null=True) 
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
+
 
     def __str__(self):
         """Return a string representation of the member with the role appended if the role is 'admin'"""

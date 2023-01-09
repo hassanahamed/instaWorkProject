@@ -40,7 +40,7 @@
 					<p class="text-justify">{{ errorMessage}}</p>
 				</div>
 				{% endif %}
-
+				<h2 style="color:white">Info </h2>
 				<div class="info-line">
 					<input type="text" class="type" name="firstName" placeholder="First Name"
 						value="{{ member.first_name}}">
@@ -56,8 +56,13 @@
 
 
 				<div class="info-line">
+					{% if member.phone_number == None %}
+					<input type="text" class="type" name="phoneNumber" placeholder="Phone Number"
+						value="">
+					{% else %}
 					<input type="text" class="type" name="phoneNumber" placeholder="Phone Number"
 						value="{{ member.phone_number }}">
+					{% endif %}
 				</div>
 
 
@@ -66,9 +71,9 @@
 					<input type="text" class="type" name="email" placeholder="Email" value="{{ member.email }}">
 				</div>
 
-
+				<h2 style="color:white">Role </h2>
 			</section>
-
+			
 			<div class="radio-button-group">
 				{% if member.role.role_name == 'Regular' %}
 				<input type="radio" class="radio-button" name="role" value=2 id="regular" checked />

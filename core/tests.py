@@ -30,9 +30,9 @@ class Testurls(TestCase):
 class ListMembersViewTestCase(TestCase):
     def setUp(self):
         # create some test Member objects
-        self.member1 = Member.objects.create(first_name='John', last_name='Doe', email = 'sample1@gmail.com')
-        self.member2 = Member.objects.create(first_name='Jane', last_name='Doe', email = 'sample2@gmail.com')
-        self.member3 = Member.objects.create(first_name='Bob', last_name='Smith', email = 'sample3@gmail.com')
+        self.member1 = Member.objects.create(first_name='John', last_name='Doe', email = 'sample1@gmail.com', phone_number = '1234567890')
+        self.member2 = Member.objects.create(first_name='Jane', last_name='Doe', email = 'sample2@gmail.com', phone_number = '1234567891')
+        self.member3 = Member.objects.create(first_name='Bob', last_name='Smith', email = 'sample3@gmail.com', phone_number = '1234567892')
         
     def test_list_all_members(self):
         response = self.client.get(reverse('list-members'))

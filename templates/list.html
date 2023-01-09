@@ -43,7 +43,7 @@
 
 		<section class="members-library">
 			<ul class="members-list">
-				{% for member in members reversed %}
+				{% for member in members %}
 
 				<a href="{% url 'edit-member' member.id %}" style="text-decoration: none;">
 
@@ -58,7 +58,11 @@
 							{% else %}
 							<p class="member-name">{{ member.first_name }} {{ member.last_name }}</p>
 							{% endif %}
+							{% if member.phone_number == None %}
+							<p class="member-attributes" ></p>
+							{% else %}
 							<p class="member-attributes" >{{ member.phone_number }}</p>
+							{% endif %}
 							<p class="member-attributes">{{ member.email }}</p>
 						</li>
 

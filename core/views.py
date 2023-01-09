@@ -21,9 +21,9 @@ def listMembers(request):
         first_name_members = Member.objects.filter(first_name__icontains=search_input)
         last_name_members = Member.objects.filter(last_name__icontains=search_input)
         # Combine the two querysets and remove any duplicate members
-        members = (first_name_members | last_name_members).distinct()
+        members = (first_name_members | last_name_members).distinct().order_by(ORDER_BY_VALUE)
     else:
-        members = Member.objects.all()
+        members = Member.objects.all().order_by(ORDER_BY_VALUE)
         search_input = EMPTY_STRING
     return render(request, INDEX_PAGE, {MEMBERS: members, SEARCH: search_input, MEMBER_COUNT: len(members)})
 

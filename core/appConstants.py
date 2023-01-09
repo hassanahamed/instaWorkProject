@@ -28,5 +28,6 @@ POST_METHOD = 'POST'
 HOME_PAGE = '/'
 EDIT_PAGE = 'edit.html'
 DELETE_PAGE = 'delete.html'
+ORDER_BY_VALUE = 'first_name'
 
 

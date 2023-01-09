@@ -67,7 +67,7 @@
 						<p class="text-justify">{{ errorMessage}}</p>
 				</div>
 				{% endif %}
-
+				<h2 style="color:white">Info </h2>
 				<div class="info-line">
 					<input type="text" class="type" name="firstName" placeholder="First Name"
 						value="{{ member.first_name}}">
@@ -96,6 +96,7 @@
 
 			</section>
 			{% endif %}
+			<h2 style="color:white">Role </h2>
 			
 			<div class="radio-button-group">
 				{% if member == '' or member.role == '2' or member.role.role_name == 'Regular' %}
