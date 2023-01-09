@@ -8,10 +8,10 @@ DEFAULT_MEMBER_CONFIG = {
 
 }
 
-SEARCH = 'search-area'
+SEARCH = 'search-member'
 
 
-INDEX_PAGE = 'index.html'
+INDEX_PAGE = 'list.html'
 MEMBERS = 'members'
 MEMBER_COUNT = 'member_count'
 ROLE = "role"

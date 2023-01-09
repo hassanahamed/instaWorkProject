@@ -59,7 +59,7 @@ teamManagementApp
 templates
    |-- delete.html
    |-- edit.html
-   |-- index.html
+   |-- list-members.html
    |-- new.html
 
 ```

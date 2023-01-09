@@ -62,7 +62,8 @@ class Member(models.Model):
     phone_number = models.CharField(
         max_length=100, 
         unique=True, 
-        validators=[custom_validators.phone_number_validator]
+        validators=[custom_validators.phone_number_validator],
+        blank=True
     )
     role = models.ForeignKey(Role, on_delete=models.SET_NULL, null=True) 
     updated = models.DateTimeField(auto_now=True)

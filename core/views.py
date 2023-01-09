@@ -9,7 +9,7 @@ from .appConstants import *
 # Create an instance of the MemberConfig class to use for mapping data
 member_config = MemberConfig()
 
-def index(request):
+def listMembers(request):
     """
     View function to display a list of all members, with the option to search for members by name.
     If a search query is provided, return a list of members whose first or last name match the search query.
