@@ -9,6 +9,7 @@ DEFAULT_MEMBER_CONFIG = {
 }
 
 SEARCH = 'search-member'
+LIST_MEMBERS = 'list-members'
 
 
 INDEX_PAGE = 'list.html'
@@ -29,5 +30,6 @@ HOME_PAGE = 'list.html'
 EDIT_PAGE = 'edit.html'
 DELETE_PAGE = 'delete.html'
 ORDER_BY_VALUE = 'first_name'
+
 
 
