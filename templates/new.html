@@ -1,131 +1,35 @@
-{% load static %}
-
+{% load static %} {% load widget_tweaks %}
 <!DOCTYPE html>
 <html>
-
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" type="text/css" href="{% static 'style-edit.css' %}">
-
-	<link rel="preconnect" href="https://fonts.gstatic.com">
-	<link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
-
-	<script src="https://kit.fontawesome.com/6b20b1c14d.js" crossorigin="anonymous"></script>
-	<title>Add Member</title>
-</head>
-
-<body>
-	<div class='container'>
-		<header class="header">
-			
-			
-			<a href="/">
-				<i class="fas fa-chevron-circle-left back-btn"></i>
-			</a>
-			<div class = "header-flex-padding">
-			<h2>Add a team member </h2>
-			
-			<span> Add info, location and role </span>
-		</div>
-		</header>
-
-		<form action="" method="POST">
-			{% csrf_token %}
-
-			{% if member == null %}
-			<section class="member-info">
-
-				<div class="info-line">
-					<input type="text" class="type" name="firstName" placeholder="First Name">
-				</div>
-
-				<div class="info-line">
-					<input type="text" class="type" name="lastName" placeholder="Last Name">
-				</div>
-
-
-
-				<div class="info-line">
-					<input type="text" class="type" name="phoneNumber" placeholder="Phone Number">
-				</div>
-
-
-
-				<div class="info-line">
-					<input type="text" class="type" name="email" placeholder="Email">
-				</div>
-
-
-
-			</section>
-			{% else %}
-			<section class="member-info">
-				{% if errorMessage != null %}
-				<div class="info-line">
-					
-						<p class="text-justify">{{ errorMessage}}</p>
-				</div>
-				{% endif %}
-				<h2 style="color:white">Info </h2>
-				<div class="info-line">
-					<input type="text" class="type" name="firstName" placeholder="First Name"
-						value="{{ member.first_name}}">
-				</div>
-
-				<div class="info-line">
-					<input type="text" class="type" name="lastName" placeholder="Last Name"
-						value="{{ member.last_name}}">
-				</div>
-
-				
-
-
-
-				<div class="info-line">
-					<input type="text" class="type" name="phoneNumber" placeholder="Phone Number"
-						value="{{ member.phone_number }}">
-				</div>
-
-
-
-				<div class="info-line">
-					<input type="text" class="type" name="email" placeholder="Email" value="{{ member.email }}">
-				</div>
-
-
-			</section>
-			{% endif %}
-			<h2 style="color:white">Role </h2>
-			
-			<div class="radio-button-group">
-				{% if member == '' or member.role == '2' or member.role.role_name == 'Regular' %}
-				<input type="radio" class="radio-button" name="role" value=2 id="regular" checked />
-				{% else %}
-				<input type="radio" class="radio-button" name="role" value=2 id="regular"/>
-				{% endif %}
-				<label class="info-line" for="button1">Regular - Cant delete members</label>
-				{% if member.role == '1' or member.role.role_name == 'Admin' %}
-				<input type="radio" class="radio-button" name="role" value=1 id="admin" checked/>
-				{% else %}
-				<input type="radio" class="radio-button" name="role" value=1 id="admin" />
-				{% endif %}
-				<label class="info-line" for="button2">Admin - Can delete members</label>
-			</div>
-
-
-			<section class="button-container">
-
-					<button class="button-save">Save</button>
-				
-			</section>
-
-			
-
-
-		</form>
-	</div>
-
-</body>
-
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'style-edit.css' %}">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/6b20b1c14d.js" crossorigin="anonymous"></script>
+    <title>Add Member</title>
+  </head>
+  <body>
+    <div class='container'>
+      <header class="header">
+        <a href="/">
+          <i class="fas fa-chevron-circle-left back-btn"></i>
+        </a>
+        <div class="header-flex-padding">
+          <h2>Add a team member </h2>
+          <span> Add info, location and role </span>
+        </div>
+      </header>
+      <form action="" method="POST"> {% csrf_token %} <section class="member-info"> {% for field in form %} <div class="info-line">
+            {{ field|add_class:'type'}}
+          </div>
+          <label style="color:white" for="{{ field.id_for_label }}">{{ field.label }}</label> {% if field.errors %} <div class="text-justify"> {% for error in field.errors %} <small style="color:red;">{{ error }}</small> {% endfor %} </div> {% endif %} {% endfor %}
+        </section>
+        <section class="button-container">
+          <input class="button-save" type="submit" value="Submit">
+        </section>
+      </form>
+    </div>
+  </body>
 </html>

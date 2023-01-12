@@ -66,7 +66,7 @@ class Member(models.Model):
         null=True,
         blank=True
     )
-    role = models.ForeignKey(Role, on_delete=models.SET_NULL, null=True) 
+    role = models.ForeignKey(Role, on_delete=models.SET_NULL, null=True, default='2') 
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
 

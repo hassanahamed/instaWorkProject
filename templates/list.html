@@ -1,79 +1,40 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html>
-
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
-	<link rel="preconnect" href="https://fonts.gstatic.com">
-	<link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
-	<script src="https://kit.fontawesome.com/6b20b1c14d.js" crossorigin="anonymous"></script>
-
-	<title>Team Management</title>
-</head>
-
-<body>
-	<div class="container">
-
-		<header class="header">
-			
-
-			<div class="header-flex-padding">
-				<h2>Team members </h2>
-				<a href="{% url 'add-member'  %}"><i class="fas fa-plus-circle add"></i></a>
-				
-
-			</div>
-			
-			<span> You have {{member_count}} team member(s) </span>
-			<br>
-			<form action="/" method="GET" class="search-bar" id='search-form'>
-
-				<input type="search-name" class="member-search" name="search-member" placeholder="Search"
-					value={{search_input}}>
-
-				<i onclick="document.getElementById('search-form').submit();" style="padding-left: 5px;"
-					class="fas fa-search"></i>
-
-			</form>
-			
-		</header>
-
-		<section class="members-library">
-			<ul class="members-list">
-				{% for member in members %}
-
-				<a href="{% url 'edit-member' member.id %}" style="text-decoration: none;">
-
-					<div class="member-section">
-						<li id="call" class="avatar-class">
-							<i class="fas fa-user-tie fa-3x"></i>
-						</li>
-						<li class="list__item">
-
-							{% if member.role.role_name == 'Admin' %}
-							<p class="member-name">{{ member.first_name }} {{ member.last_name }} (Admin)</p>
-							{% else %}
-							<p class="member-name">{{ member.first_name }} {{ member.last_name }}</p>
-							{% endif %}
-							{% if member.phone_number == None %}
-							<p class="member-attributes" ></p>
-							{% else %}
-							<p class="member-attributes" >{{ member.phone_number }}</p>
-							{% endif %}
-							<p class="member-attributes">{{ member.email }}</p>
-						</li>
-
-					</div>
-				</a>
-				<hr>
-
-				{% endfor %}
-			</ul>
-		</section>
-	</div>
-</body>
-
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/6b20b1c14d.js" crossorigin="anonymous"></script>
+    <title>Team Management</title>
+  </head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <div class="header-flex-padding">
+          <h2>Team members </h2>
+          <a href="{% url 'add-member'  %}">
+            <i class="fas fa-plus-circle add"></i>
+          </a>
+        </div>
+        <span> You have {{members|length}} team member(s) </span>
+        <br>
+      </header>
+      <section class="members-library">
+        <ul class="members-list"> {% for member in members %} <a href="{% url 'edit-member' member.id %}" style="text-decoration: none;">
+            <div class="member-section">
+              <li id="call" class="avatar-class">
+                <i class="fas fa-user-tie fa-3x"></i>
+              </li>
+              <li class="list__item"> {% if member.role.role_name == 'Admin' %} <p class="member-name">{{ member.first_name }} {{ member.last_name }} (Admin)</p> {% else %} <p class="member-name">{{ member.first_name }} {{ member.last_name }}</p> {% endif %} {% if member.phone_number == None %} <p class="member-attributes"></p> {% else %} <p class="member-attributes">{{ member.phone_number }}</p> {% endif %} <p class="member-attributes">{{ member.email }}</p>
+              </li>
+            </div>
+          </a>
+          <hr> {% endfor %}
+        </ul>
+      </section>
+    </div>
+  </body>
 </html>

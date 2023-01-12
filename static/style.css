@@ -20,12 +20,9 @@ margin-left: 100px;
 column-gap: 90px;
 }
 
-.btn{
-
-}
-
-.btn-group{
-	
+.flex-baseline{
+	display: flex;
+    align-items: baseline;
 }
 
 

@@ -30,7 +30,10 @@ a{
 	color: #fff;
 }
 
-
+.flex-baseline{
+	display: flex;
+    align-items: baseline;
+}
 
 .back-btn{
 	color: #fff;
@@ -62,7 +65,7 @@ a{
 
 .info-line{
 	display: flex;
-	color: #fff;
+	color: rgb(29, 2, 2);
 	margin: 0 auto;
 	padding: 1em 2em;
 	margin-top: 2em;

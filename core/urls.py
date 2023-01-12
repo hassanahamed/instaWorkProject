@@ -1,9 +1,9 @@
 from django.urls import path
-from . import views
+from .views import ListMembersView, AddMemberView, EditMemberView, DeleteMemberView
 
 urlpatterns = [
-    path('', views.listMembers, name='list-members'),
-    path('add-member/', views.addMember, name='add-member'),
-    path('edit-member/<str:pk>', views.editMember, name='edit-member'),
-    path('delete-member/<str:pk>', views.deleteMember, name='delete-member'),
+    path('', ListMembersView.as_view(), name='list-members'),
+    path('add-member/', AddMemberView.as_view(), name='add-member'),
+    path('edit-member/<str:pk>', EditMemberView.as_view(), name='edit-member'),
+    path('delete-member/<str:pk>',DeleteMemberView.as_view(), name='delete-member'),
 ]
