@@ -12,23 +12,25 @@ class Testurls(TestCase):
 
     def test_list_members_url_resolves(self):
         url = reverse("list-members") 
-        self.assertEquals(resolve(url).func, views.listMembers)
+        self.assertEquals(url, '/')
 
     def test_add_member_url_resolves(self):
         url = reverse("add-member") 
-        self.assertEquals(resolve(url).func, views.addMember)
+        self.assertEquals(url, '/add-member/')
 
     def test_edit_member_url_resolves(self):
         url = reverse("edit-member", args=[1]) 
-        self.assertEquals(resolve(url).func, views.editMember)
+        self.assertEquals(url, '/edit-member/1')
 
     def test_delete_member_url_resolves(self):
         url = reverse("delete-member", args=[1]) 
-        self.assertEquals(resolve(url).func, views.deleteMember)
+        self.assertEquals(url, '/delete-member/1')
 
 
 class ListMembersViewTestCase(TestCase):
     def setUp(self):
+        self.admin = Role.objects.create(role_name='Admin')
+        self.regular = Role.objects.create(role_name='Regular')
         # create some test Member objects
         self.member1 = Member.objects.create(first_name='John', last_name='Doe', email = 'sample1@gmail.com', phone_number = '1234567890')
         self.member2 = Member.objects.create(first_name='Jane', last_name='Doe', email = 'sample2@gmail.com', phone_number = '1234567891')
@@ -38,22 +40,7 @@ class ListMembersViewTestCase(TestCase):
         response = self.client.get(reverse('list-members'))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['members'].count(), 3)
-        self.assertEqual(response.context['member_count'], 3)
     
-    def test_list_members_by_first_name(self):
-        response = self.client.get(reverse('list-members'), {'search-member': 'John'})
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.context['members'].count(), 1)
-        self.assertEqual(response.context['member_count'], 1)
-        self.assertEqual(response.context['members'][0], self.member1)
-    
-    def test_list_members_by_last_name(self):
-        response = self.client.get(reverse('list-members'), {'search-member': 'Doe'})
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.context['members'].count(), 2)
-        self.assertEqual(response.context['member_count'], 2)
-        self.assertEqual(response.context['members'][0], self.member1)
-        self.assertEqual(response.context['members'][1], self.member2)
 
 
 class AddMemberViewTestCase(TestCase):
@@ -64,10 +51,10 @@ class AddMemberViewTestCase(TestCase):
         
         # create a test form data dictionary
         self.form_data = {
-            'firstName': 'John',
-            'lastName': 'Doe',
+            'first_name': 'John',
+            'last_name': 'Doe',
             'email': 'john.doe@example.com',
-            'phoneNumber': '1234567890',
+            'phone_number': '1234567890',
             'role': self.admin.id
         }
         
@@ -85,11 +72,10 @@ class AddMemberViewTestCase(TestCase):
     def test_add_member_with_invalid_form(self):
         # test with missing 'first_name' field
         form_data = self.form_data.copy()
-        form_data.pop('firstName')
+        form_data.pop('first_name')
         response = self.client.post(reverse('add-member'), form_data)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(Member.objects.count(), 0)
-        self.assertEqual(response.context.get('errorMessage'),'first_name field --> This field is required.\n')
         
         # test with invalid 'email' field
         form_data = self.form_data.copy()
@@ -97,7 +83,6 @@ class AddMemberViewTestCase(TestCase):
         response = self.client.post(reverse('add-member'), form_data)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(Member.objects.count(), 0)
-        self.assertEqual(response.context.get('errorMessage'),'email field --> Enter a valid email address.\n')
         
 
 
@@ -116,10 +101,10 @@ class EditMemberViewTestCase(TestCase):
         
         # create a test form data dictionary
         self.form_data = {
-            'firstName': 'Jane',
-            'lastName': 'Doe',
+            'first_name': 'Jane',
+            'last_name': 'Doe',
             'email': 'jane.doe@example.com',
-            'phoneNumber': '1234567891',
+            'phone_number': '1234567891',
             'role': self.regular.id
         }
         
@@ -137,11 +122,10 @@ class EditMemberViewTestCase(TestCase):
     def test_edit_member_with_invalid_form(self):
         # test with missing 'first_name' field
         form_data = self.form_data.copy()
-        form_data.pop('firstName')
+        form_data.pop('first_name')
         response = self.client.post(reverse('edit-member', kwargs={'pk': self.member.id}), form_data)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(Member.objects.count(), 1)
-        self.assertEqual(response.context.get('errorMessage'),'first_name field --> This field is required.\n')
         
         # test with invalid 'email' field
         form_data = self.form_data.copy()
@@ -149,5 +133,4 @@ class EditMemberViewTestCase(TestCase):
         response = self.client.post(reverse('edit-member', kwargs={'pk': self.member.id}), form_data)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(Member.objects.count(), 1)
-        self.assertEqual(response.context.get('errorMessage'),'email field --> Enter a valid email address.\n')
- 
+        

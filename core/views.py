@@ -97,14 +97,7 @@ class ListMembersView(ListView):
     model = Member
     template_name = 'list.html'
     context_object_name = 'members'
-    ordering = 'last_name'
-
-    # def get_queryset(self):
-    #     queryset = super().get_queryset()
-    #     search_input = self.request.GET.get('search')
-    #     if search_input:
-    #         queryset = queryset.filter(first_name__icontains=search_input) | queryset.filter(last_name__icontains=search_input)
-    #     return queryset
+    ordering = 'first_name'
 
 class AddMemberView(CreateView):
     model = Member
